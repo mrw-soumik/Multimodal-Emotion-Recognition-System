@@ -1,60 +1,78 @@
 
-# Multimodal Emotion Detection
+# Multimodal Emotion Recognition System
 
-This project combines **face emotion detection** and **voice emotion detection** into a **multimodal emotion detection system**. Using separate models for each modality, emotions are fused based on confidence scores to provide an accurate and robust emotion recognition system. The system can log predictions, visualize emotion distributions, and accept user feedback for evaluation.
+This repository contains a **real-time multimodal emotion recognition system** that combines **facial expressions** and **vocal cues** to detect emotions accurately. By leveraging advanced models such as Vision Transformer (ViT) for facial analysis and BiLSTM for vocal analysis, the system achieves high performance by fusing predictions from both modalities.
 
 ---
 
 ## Table of Contents
 
+- [Introduction](#introduction)
 - [Features](#features)
-- [Technologies Used](#technologies-used)
 - [Datasets](#datasets)
+- [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Training](#training)
-  - [Face Emotion Detection](#face-emotion-detection)
-  - [Voice Emotion Detection](#voice-emotion-detection)
-- [Using the Multimodal System](#using-the-multimodal-system)
+  - [Face Emotion Recognition](#face-emotion-recognition)
+  - [Vocal Emotion Recognition](#vocal-emotion-recognition)
+- [Real-Time Multimodal Emotion Recognition](#real-time-multimodal-emotion-recognition)
 - [Visualization and Logging](#visualization-and-logging)
 - [Future Work](#future-work)
+- [Authors and Contributions](#authors-and-contributions)
+
+---
+
+## Introduction
+
+This project aims to bridge the gap between human emotions and machine interactions by creating a real-time **Multimodal Emotion Recognition System**. The system integrates two input modalities:
+
+1. **Facial Expressions**: Captured via webcam and processed using a **Vision Transformer (ViT)** for emotion classification.
+2. **Vocal Cues**: Captured via microphone and processed using a **Bidirectional Long Short-Term Memory (BiLSTM)** network for emotion detection.
+
+These outputs are combined using a **decision-level fusion mechanism**, ensuring robust predictions even in challenging scenarios like noisy environments or poor lighting conditions.
 
 ---
 
 ## Features
 
-- **Face Emotion Detection**: Vision Transformer (ViT)-based model trained on face images.
-- **Voice Emotion Detection**: LSTM-based model trained on MFCC and mel spectrogram features from audio.
-- **Face Detection**: Uses OpenCV's SSD-based pre-trained model for face detection.
-- **Multimodal Fusion**: Combines face and voice predictions to determine the final emotion.
-- **Logging and Visualization**:
-  - Logs predictions for analysis.
-  - Visualizes emotion distributions, confidence scores, and user feedback.
-
----
-
-## Technologies Used
-
-- **Python**
-- **Deep Learning Frameworks**: PyTorch, TensorFlow/Keras
-- **Computer Vision**: OpenCV
-- **Audio Processing**: Librosa, PyAudio
-- **Visualization**: Matplotlib, Seaborn
-- **Data Handling**: NumPy, Pandas
+- **Face Emotion Detection**: 
+  - Uses OpenCV's SSD-based face detection (`res10_300x300_ssd_iter_140000.caffemodel`) and **Vision Transformer** for analyzing facial expressions.
+- **Vocal Emotion Detection**: 
+  - Utilizes a BiLSTM network trained on mel spectrogram and MFCC features for vocal emotion recognition.
+- **Multimodal Fusion**: 
+  - Combines predictions from both modalities using a decision-level fusion strategy.
+- **Real-Time Processing**:
+  - Processes live webcam and microphone input for real-time emotion detection.
+- **Visualization and Feedback**:
+  - Logs predictions for analysis and supports user feedback to refine the system.
 
 ---
 
 ## Datasets
 
-The project uses the following datasets for training:
+This project uses publicly available datasets:
 
-1. **FER2013** (Face Emotion Recognition):  
-   [FER2013 on Kaggle](https://www.kaggle.com/datasets/msambare/fer2013)
+1. **FER2013** (Facial Emotion Recognition):  
+   - Source: [FER2013 Dataset on Kaggle](https://www.kaggle.com/datasets/msambare/fer2013)
+   - Description: Contains 35,887 grayscale images, each labeled with one of seven emotions: `angry`, `disgust`, `fear`, `happy`, `neutral`, `sad`, and `surprise`.
 
-2. **RAVDESS** (Emotional Speech Audio):  
-   [RAVDESS on Kaggle](https://www.kaggle.com/datasets/uwrfkaggler/ravdess-emotional-speech-audio)
+2. **RAVDESS** (Ryerson Audio-Visual Database of Emotional Speech and Song):  
+   - Source: [RAVDESS Dataset on Kaggle](https://www.kaggle.com/datasets/uwrfkaggler/ravdess-emotional-speech-audio)
+   - Description: Contains labeled speech audio samples for emotions like `angry`, `calm`, `disgust`, `fearful`, `happy`, `neutral`, `sad`, and `surprise`.
 
 3. **TESS** (Toronto Emotional Speech Set):  
-   [TESS on Kaggle](https://www.kaggle.com/datasets/ejlok1/toronto-emotional-speech-set-tess)
+   - Source: [TESS Dataset on Kaggle](https://www.kaggle.com/datasets/ejlok1/toronto-emotional-speech-set-tess)
+   - Description: Includes 2,800 audio recordings, covering seven emotions recorded in noise-controlled environments.
+
+---
+
+## Technologies Used
+
+- **Deep Learning Frameworks**: PyTorch, TensorFlow/Keras
+- **Computer Vision**: OpenCV, Vision Transformer (ViT)
+- **Audio Processing**: Librosa, PyAudio
+- **Visualization**: Matplotlib, Seaborn
+- **Data Handling**: NumPy, Pandas
 
 ---
 
@@ -62,8 +80,8 @@ The project uses the following datasets for training:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/<your-username>/multimodal-emotion-detection.git
-   cd multimodal-emotion-detection
+   git clone https://github.com/<your-username>/multimodal-emotion-recognition.git
+   cd multimodal-emotion-recognition
    ```
 
 2. Install the required dependencies:
@@ -71,103 +89,80 @@ The project uses the following datasets for training:
    pip install -r requirements.txt
    ```
 
-3. Ensure the models and supporting files are in the `models/` directory:
-   - `vit_emotion_model.pth`: Face emotion detection model.
-   - `emotion_model.keras`: Voice emotion detection model.
+3. Ensure the models and required files are in the `models/` directory:
+   - `vit_emotion_model.pth`: Vision Transformer model for face emotion detection.
+   - `emotion_model.keras`: BiLSTM model for voice emotion detection.
    - Supporting files: `scaler.pkl`, `encoder.pkl`, `model_config.pkl`, `deploy.prototxt`, `res10_300x300_ssd_iter_140000.caffemodel`.
 
 ---
 
 ## Training
 
-### Face Emotion Detection
+### Face Emotion Recognition
 
-The face emotion detection model is based on the Vision Transformer (ViT) architecture.
+1. **Model Architecture**: Vision Transformer (ViT) pretrained on ImageNet.
+2. **Dataset**: FER2013
+   - Preprocessing: Images resized to 224x224 and augmented using techniques like horizontal flips, rotations, and color jittering.
+3. **Output**: Model saved as `vit_emotion_model.pth`.
 
-1. **Dataset**: Train the model on the FER2013 dataset, which includes 7 emotion classes: `angry`, `disgust`, `fear`, `happy`, `neutral`, `sad`, and `surprise`.
+### Vocal Emotion Recognition
 
-2. **Training Code**:
-   - Located in the project directory.
-   - Key features:
-     - Uses `torchvision.transforms` for data augmentation.
-     - Model architecture defined using the `timm` library.
-     - Optimized using AdamW and CosineAnnealingLR for learning rate scheduling.
-
-3. **Face Detection**:
-   - OpenCV's SSD-based face detection model:
-     - `deploy.prototxt`: Configuration file.
-     - `res10_300x300_ssd_iter_140000.caffemodel`: Pre-trained weights.
-
-4. **Output**:
-   - Trained model saved as `vit_emotion_model.pth`.
-
-### Voice Emotion Detection
-
-The voice emotion detection model uses a stacked LSTM architecture with MFCC and mel spectrogram features.
-
-1. **Datasets**: 
-   - **RAVDESS** and **TESS** datasets for emotional speech.
-   - Mapped labels to align with common emotion categories.
-
-2. **Feature Extraction**:
-   - Extract **MFCC** and **mel spectrogram** features using Librosa.
-   - Normalize features with MinMaxScaler.
-
-3. **Training Code**:
-   - Located in the project directory.
-   - Key features:
-     - TimeDistributed Conv1D layers for initial feature extraction.
-     - Bidirectional LSTMs for temporal modeling.
-     - Dense layers for emotion classification.
-
-4. **Output**:
-   - Trained model saved as `emotion_model.keras`.
+1. **Model Architecture**: BiLSTM network with mel spectrogram and MFCC features.
+2. **Datasets**: RAVDESS and TESS
+   - Features combined into a 141-dimensional vector (128 mel bands + 13 MFCCs).
+3. **Output**: Model saved as `emotion_model.keras`.
 
 ---
 
-## Using the Multimodal System
+## Real-Time Multimodal Emotion Recognition
 
-1. **Setup**:
-   - Ensure all required models and files are in the `models/` directory.
-   - Supported files:
-     - `vit_emotion_model.pth`: Face model.
-     - `emotion_model.keras`: Voice model.
-     - `deploy.prototxt`, `res10_300x300_ssd_iter_140000.caffemodel`: Face detection files.
-     - `scaler.pkl`, `encoder.pkl`, `model_config.pkl`: Voice model configurations.
+1. **Facial Input**:
+   - Captured using OpenCV and preprocessed with SSD face detection (`res10_300x300_ssd_iter_140000.caffemodel` and `deploy.prototxt`).
+   - Emotion prediction using Vision Transformer.
 
-2. **Run the System**:
-   ```bash
-   python main.py
-   ```
+2. **Vocal Input**:
+   - Captured via microphone, processed to extract mel spectrogram and MFCC features.
+   - Emotion prediction using BiLSTM.
 
-3. **Options**:
-   - **Real-Time Emotion Detection**: Detect emotions from live webcam and microphone input.
-   - **Sample Collection**: Capture image and audio samples for analysis.
-   - **Visualization**: View logged predictions and analyze emotion distributions.
+3. **Fusion**:
+   - **Decision-Level Fusion**:
+     - Agreement: Selects the emotion if both modalities agree.
+     - Disagreement: Chooses the emotion with the higher confidence score.
+
+4. **Output**:
+   - Displays fused emotion with confidence levels in real-time.
 
 ---
 
 ## Visualization and Logging
 
-- **Emotion Distributions**:
-  - Displays count plots for face, voice, and fused emotions.
-  - Helps identify patterns in predictions.
-
+- **Emotion Distribution**:
+  - Generates plots of face, voice, and fused emotion distributions.
 - **Confidence Scores**:
-  - Visualizes confidence distributions for face and voice models.
-
+  - Visualizes confidence scores for both modalities.
 - **User Feedback**:
-  - Allows users to provide feedback on fused predictions.
-  - Updates the log file with feedback for analysis.
+  - Logs user feedback to refine the system.
 
 ---
 
 ## Future Work
 
-1. **Expand Datasets**: Train models on larger and more diverse datasets for improved performance.
-2. **Fine-Tune Models**: Further optimize models for real-time performance.
-3. **Custom GUI**: Develop a graphical user interface for easier interaction.
-4. **Enhanced Fusion**: Experiment with advanced fusion techniques, such as weighted voting or neural networks.
+1. **Expand Datasets**:
+   - Include more diverse datasets to improve model robustness.
+2. **Optimize Models**:
+   - Use techniques like quantization and pruning for faster processing.
+3. **Advanced Fusion**:
+   - Experiment with dynamic and attention-based fusion methods.
+4. **Real-Time Feedback**:
+   - Integrate live user feedback for system refinement.
+
+---
+
+## Authors and Contributions
+
+- **Mostafa Rafiur Wasib**: Developed Vision Transformer model for facial emotion recognition and handled dataset preprocessing.
+- **Chowdhury Nafis Saleh**: Designed BiLSTM network for vocal emotion recognition and feature extraction.
+- **Azmol Fuad**: Developed fusion mechanism and real-time interface integration.
 
 ---
 
