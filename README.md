@@ -160,9 +160,9 @@ This project uses publicly available datasets:
 
 ## Authors and Contributions
 
-- **Mostafa Rafiur Wasib**: Developed Vision Transformer model for facial emotion recognition and handled dataset preprocessing.
-- **Chowdhury Nafis Saleh**: Designed BiLSTM network for vocal emotion recognition and feature extraction.
-- **Azmol Fuad**: Developed fusion mechanism and real-time interface integration.
+- **Mostafa Rafiur Wasib**
+- **Chowdhury Nafis Saleh**
+- **Azmol Fuad**
 
 ---
 
