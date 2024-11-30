@@ -9,6 +9,7 @@ This project combines **face emotion detection** and **voice emotion detection**
 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
+- [Datasets](#datasets)
 - [Installation](#installation)
 - [Training](#training)
   - [Face Emotion Detection](#face-emotion-detection)
@@ -38,6 +39,21 @@ This project combines **face emotion detection** and **voice emotion detection**
 - **Audio Processing**: Librosa, PyAudio
 - **Visualization**: Matplotlib, Seaborn
 - **Data Handling**: NumPy, Pandas
+
+---
+
+## Datasets
+
+The project uses the following datasets for training:
+
+1. **FER2013** (Face Emotion Recognition):  
+   [FER2013 on Kaggle](https://www.kaggle.com/datasets/msambare/fer2013)
+
+2. **RAVDESS** (Emotional Speech Audio):  
+   [RAVDESS on Kaggle](https://www.kaggle.com/datasets/uwrfkaggler/ravdess-emotional-speech-audio)
+
+3. **TESS** (Toronto Emotional Speech Set):  
+   [TESS on Kaggle](https://www.kaggle.com/datasets/ejlok1/toronto-emotional-speech-set-tess)
 
 ---
 
