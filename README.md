@@ -24,6 +24,7 @@ This project combines **face emotion detection** and **voice emotion detection**
 
 - **Face Emotion Detection**: Vision Transformer (ViT)-based model trained on face images.
 - **Voice Emotion Detection**: LSTM-based model trained on MFCC and mel spectrogram features from audio.
+- **Face Detection**: Uses OpenCV's SSD-based pre-trained model for face detection.
 - **Multimodal Fusion**: Combines face and voice predictions to determine the final emotion.
 - **Logging and Visualization**:
   - Logs predictions for analysis.
@@ -92,7 +93,12 @@ The face emotion detection model is based on the Vision Transformer (ViT) archit
      - Model architecture defined using the `timm` library.
      - Optimized using AdamW and CosineAnnealingLR for learning rate scheduling.
 
-3. **Output**:
+3. **Face Detection**:
+   - OpenCV's SSD-based face detection model:
+     - `deploy.prototxt`: Configuration file.
+     - `res10_300x300_ssd_iter_140000.caffemodel`: Pre-trained weights.
+
+4. **Output**:
    - Trained model saved as `vit_emotion_model.pth`.
 
 ### Voice Emotion Detection
@@ -126,6 +132,7 @@ The voice emotion detection model uses a stacked LSTM architecture with MFCC and
    - Supported files:
      - `vit_emotion_model.pth`: Face model.
      - `emotion_model.keras`: Voice model.
+     - `deploy.prototxt`, `res10_300x300_ssd_iter_140000.caffemodel`: Face detection files.
      - `scaler.pkl`, `encoder.pkl`, `model_config.pkl`: Voice model configurations.
 
 2. **Run the System**:
