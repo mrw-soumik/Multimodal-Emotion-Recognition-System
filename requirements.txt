@@ -1,0 +1,12 @@
+numpy
+pandas
+librosa
+scikit-learn
+tensorflow
+torch
+torchvision
+timm
+opencv-python
+matplotlib
+seaborn
+pickle5
