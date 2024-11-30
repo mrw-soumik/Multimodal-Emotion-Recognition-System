@@ -1,12 +1,16 @@
-numpy
-pandas
-librosa
-scikit-learn
-tensorflow
+# requirements.txt
+
 torch
 torchvision
 timm
 opencv-python
+numpy
+pillow
+librosa
+pyaudio
+keras
+tensorflow
 matplotlib
 seaborn
-pickle5
+scikit-learn
+pandas
